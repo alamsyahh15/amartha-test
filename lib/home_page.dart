@@ -115,14 +115,13 @@ class _HomePageState extends State<HomePage> {
             ))
           : Container(
               margin: const EdgeInsets.symmetric(vertical: 16),
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: todos.length,
-                    itemBuilder: (context, index) {
-                      final data = todos[index];
-                      return Dismissible(
+              child: ListView.builder(
+                itemCount: todos.length,
+                itemBuilder: (context, index) {
+                  final data = todos[index];
+                  return Column(
+                    children: [
+                      Dismissible(
                         key: Key("${data.nameTask}-$index"),
                         onDismissed: (direction) {
                           deleteTodo(index);
@@ -140,11 +139,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onTap: () => updateTodo(index),
                         ),
-                      );
-                    },
-                  ),
-                  if (todos.length == 1) const Text("Swipe to delete")
-                ],
+                      ),
+                      if (todos.length == 1) const SizedBox(height: 16),
+                      if (todos.length == 1) const Text("Swipe to delete")
+                    ],
+                  );
+                },
               ),
             ),
       floatingActionButton: FloatingActionButton(
